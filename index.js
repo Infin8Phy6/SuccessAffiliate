@@ -8,7 +8,7 @@ const PORT = process.env.PORT || 3000;
 app.use(cors()); 
 app.use(express.json()); // Middleware for parsing JSON requests
 
-// Corrected CORS Headers Middleware (optional)
+// Corrected CORS Headers Middleware
 app.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*"); // Allow all origins, change * to specific domain if needed
   res.header("Access-Control-Allow-Methods", "GET, HEAD, OPTIONS, POST, PUT, DELETE"); // Allowed HTTP methods
@@ -16,24 +16,21 @@ app.use((req, res, next) => {
   next();
 });
 
-// Store the reference codes and wallet addresses (could be in a database)
-const referenceCodes = {
-  "ENA": "0x8619c7753f2ac1f2c96a90ad6d19b3df50a8ea93"
-  // Add more codes here
-};
+// Define the Question type
+const metawalletviacode = [
+    {
+        code: "ENA",
+        walletAddress: "0x8619c7753f2ac1f2c96a90ad6d19b3df50a8ea93"
+      }
 
-// Endpoint to get the wallet address based on reference code
-app.get('/get-wallet-address/:code', (req, res) => {
-  const code = req.params.code;
-  const walletAddress = referenceCodes[code];
+  ];
 
-  if (walletAddress) {
-    res.json({ address: walletAddress });
-  } else {
-    res.status(404).json({ error: "Reference code not found" });
-  }
+// Route to fetch metawalletviacode
+app.get("/api/metawalletviacode", (req, res) => {
+  res.json(metawalletviacode); // Send the list of questions as the response
 });
 
+// Start the server
 app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+  console.log(`Server is running on port ${PORT}`);
 });
