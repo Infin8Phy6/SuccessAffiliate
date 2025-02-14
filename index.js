@@ -21,12 +21,8 @@ const metawalletviacode = [
   {
     code: "ENA", // Reference code
     walletAddress: "0x8619c7753f2ac1f2c96a90ad6d19b3df50a8ea93" // Corresponding wallet address
-  },
-  // Add other reference codes and wallet addresses here
-  {
-    code: "EXAMPLE",
-    walletAddress: "0x1234567890abcdef1234567890abcdef12345678"
   }
+
 ];
 
 // Route to check reference code and return corresponding wallet address
