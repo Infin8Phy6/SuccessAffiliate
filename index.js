@@ -16,18 +16,29 @@ app.use((req, res, next) => {
   next();
 });
 
-// Define the Question type
+// Define the reference code mapping
 const metawalletviacode = [
-    {
-        code: "ENA",
-        walletAddress: "0x8619c7753f2ac1f2c96a90ad6d19b3df50a8ea93"
-      }
+  {
+    code: "ENA", // Reference code
+    walletAddress: "0x8619c7753f2ac1f2c96a90ad6d19b3df50a8ea93" // Corresponding wallet address
+  },
+  // Add other reference codes and wallet addresses here
+  {
+    code: "EXAMPLE",
+    walletAddress: "0x1234567890abcdef1234567890abcdef12345678"
+  }
+];
 
-  ];
+// Route to check reference code and return corresponding wallet address
+app.get("/api/metawalletviacode/:code", (req, res) => {
+  const { code } = req.params; // Extract reference code from URL
+  const walletData = metawalletviacode.find(entry => entry.code === code); // Search for the matching code
 
-// Route to fetch metawalletviacode
-app.get("/api/metawalletviacode", (req, res) => {
-  res.json(metawalletviacode); // Send the list of questions as the response
+  if (walletData) {
+    res.json({ address: walletData.walletAddress }); // Send the corresponding wallet address if found
+  } else {
+    res.status(404).json({ message: "Reference code not found." }); // If no match, return error message
+  }
 });
 
 // Start the server
